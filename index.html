@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel ENIGMA - Tìm kiếm khách sạn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        :root {
+            --primary-color: #2a5298;
+            --secondary-color: #ff6200;
+            --dark-blue: #1e3c72;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #495057;
+            --white: #ffffff;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: none;
+            position: relative;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            left: 0; top: 0; width: 100vw; height: 50vh;
+            background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center;
+            background-size: cover;
+            z-index: 0;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-color));
+            color: var(--white);
+            padding: 15px 5%;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 5%;
+            background: rgba(30, 60, 114, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .logo-container img {
+            height: 40px;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px;
+            border-radius: 10px;
+        }
+        
+        .logo-container img:hover {
+            transform: scale(1.1) rotate(-5deg);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+        
+        .site-name {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .nav-links > * {
+            display: flex;
+            align-items: center;
+        }
+        .language-dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .language-dropdown i {
+            font-size: 18px;
+            vertical-align: middle;
+        }
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--white);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+        
+        .nav-links a:hover::after {
+            width: 70%;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tabs-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(5px);
+            margin-bottom: 20px;
+        }
+        
+        .tabs {
+  display: flex;
+  justify-content: start;
+  gap: 20px;
+  border-bottom: 2px solid #e0e0e0;
+  overflow-x: auto;
+}
+
+.tabs button {
+  background: transparent;
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+.tabs button.active {
+  color: #0071c2; /* màu xanh */
+  border-bottom: 2px solid #0071c2;
+  font-weight: bold;
+}
+
+.tabs button i {
+  font-size: 16px;
+}
+        .tabs button:hover {
+  color: #0071c2;
+}
+        .tabs button:hover:not(.active) {
+            background: rgba(42, 82, 152, 0.1);
+            transform: translateY(-2px);
+        }
+        .tabs button:hover:not(.active) {
+            background: var(--medium-gray);
+            transform: translateY(-2px);
+        }
+        
+        .tabs button svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            transition: var(--transition);
+        }
+        
+        .tabs button.active svg {
+            fill: var(--white);
+        }
+        
+        .sub-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+            padding: 0 15px;
+        }
+        
+        .sub-tab {
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 500;
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--primary-color);
+            position: relative;
+            overflow: hidden;
+            min-width: 160px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .sub-tab i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+        
+        .sub-tab:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(42, 82, 152, 0.2);
+        }
+        
+        .sub-tab:hover i {
+            transform: scale(1.1);
+        }
+        
+        .sub-tab.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 5px 15px rgba(42, 82, 152, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .sub-tab.active i {
+            transform: scale(1.1);
+        }
+        
+        .search-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 5px;
+            max-width: 1000px;
+            margin: 0 auto;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+        }
+        
+        .search-container:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        
+        .search-bar input {
+            padding: 15px 25px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            flex: 1;
+            background: transparent;
+            transition: var(--transition);
+        }
+        
+        .search-bar input::placeholder {
+            color: #999;
+        }
+        
+        .search-bar input:focus {
+            background: rgba(42, 82, 152, 0.05);
+            border-radius: 25px;
+        }
+        
+        .search-bar input:first-child {
+            border-radius: 25px 0 0 25px;
+        }
+        
+        .guests-dropdown-container {
+            position: relative;
+            flex: 0.8;
+        }
+        
+        #guests {
+            padding: 15px 25px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: var(--transition);
+        }
+        
+        #guests:hover {
+            background: rgba(42, 82, 152, 0.05);
+            border-radius: 25px;
+        }
+        
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            z-index: 1000;
+            width: 280px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .dropdown.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .dropdown div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            font-size: 16px;
+            color: var(--dark-gray);
+        }
+        
+        .dropdown span {
+            font-weight: 500;
+        }
+        
+        .dropdown .counter {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .dropdown .counter button {
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            font-size: 16px;
+            border: 1px solid var(--medium-gray);
+            background: var(--white);
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .dropdown .counter button:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+        
+        .dropdown .counter button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--light-gray);
+        }
+        
+        .dropdown .counter button:disabled:hover {
+            background: var(--light-gray);
+            color: inherit;
+            border-color: var(--medium-gray);
+            transform: none;
+        }
+        
+        .dropdown .counter-value {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        #confirm-btn {
+            margin-top: 20px;
+            padding: 12px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        #confirm-btn:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(42, 82, 152, 0.3);
+        }
+
+        .search-btn {
+            padding: 15px 25px;
+            font-size: 16px;
+            background: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+        
+        .search-btn:hover {
+            background: #e55a00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 98, 0, 0.3);
+        }
+        
+        .search-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--white);
+            transition: var(--transition);
+        }
+        
+        .search-btn:hover svg {
+            transform: scale(1.1);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .search-bar {
+                flex-wrap: wrap;
+            }
+            
+            .search-bar input {
+                border-radius: 25px !important;
+                margin-bottom: 5px;
+                width: 100%;
+            }
+            
+            .guests-dropdown-container {
+                flex: 1;
+                width: 100%;
+            }
+            
+            .search-btn {
+                border-radius: 25px;
+                width: 100%;
+                justify-content: center;
+                margin-top: 5px;
+            }
+            
+            .tabs button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            .container {
+                margin: 80px auto 30px;
+                padding: 0 15px;
+            }
+
+            .tabs-container {
+                padding: 15px;
+            }
+
+            .sub-tabs {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .sub-tab {
+                flex: 1 1 calc(50% - 8px);
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .logo-container {
+                padding: 6px 12px;
+                margin-bottom: 15px;
+                justify-content: center;
+                width: fit-content;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .logo-container img {
+                height: 35px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+            
+            .container {
+                margin-top: 120px;
+            }
+            
+            .tabs {
+                gap: 5px;
+                overflow-x: auto;
+                padding-bottom: 5px;
+            }
+            
+            .tabs button {
+                padding: 8px 12px;
+                font-size: 12px;
+                white-space: nowrap;
+            }
+            
+            .tabs button svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .search-container {
+                padding: 10px;
+            }
+
+            .dropdown {
+                width: 100%;
+                left: 0;
+                right: 0;
+            }
+
+            .sub-tabs {
+                gap: 15px;
+                margin: 20px 0;
+            }
+            
+            .sub-tab {
+                padding: 12px 25px;
+                font-size: 15px;
+                min-width: 140px;
+            }
+            
+            .sub-tab i {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                padding: 5px 10px;
+            }
+            
+            .logo-container img {
+                height: 30px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+
+            .tabs button {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .sub-tabs {
+                gap: 10px;
+                margin: 15px 0;
+            }
+            
+            .sub-tab {
+                padding: 10px 20px;
+                font-size: 14px;
+                min-width: 120px;
+                flex: 1 1 calc(50% - 10px);
+            }
+
+            .search-bar input {
+                font-size: 14px;
+                padding: 12px 20px;
+            }
+
+            .search-btn {
+                font-size: 14px;
+                padding: 12px 20px;
+            }
+        }
+
+        /* Add smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Improve touch targets on mobile */
+        @media (hover: none) {
+            .nav-links a,
+            .tabs button,
+            .sub-tab,
+            .search-btn,
+            .dropdown button {
+                min-height: 44px;
+            }
+        }
+        .flatpickr-calendar {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(5px);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            width: auto !important;
+        }
+        .flatpickr-month {
+            color: var(--dark-gray);
+            font-weight: 600;
+        }
+        .flatpickr-monthDropdown-months, .flatpickr-year {
+            font-size: 16px;
+            color: var(--dark-gray);
+        }
+        .flatpickr-weekday {
+            color: var(--dark-gray);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .flatpickr-day {
+            color: var(--dark-gray);
+            font-size: 14px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        .flatpickr-day:hover {
+            background: rgba(42, 82, 152, 0.1);
+            color: var(--primary-color);
+        }
+        .flatpickr-day.startRange, .flatpickr-day.endRange {
+            background: var(--primary-color) !important;
+            color: var(--white) !important;
+            border-radius: 50%;
+        }
+        .flatpickr-day.inRange {
+            background: rgba(42, 82, 152, 0.2) !important;
+            color: var(--dark-gray);
+            border-radius: 0;
+        }
+        .flatpickr-day.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        .flatpickr-prev-month, .flatpickr-next-month {
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+        .flatpickr-calendar.showMonths-2 .flatpickr-month {
+            width: 50%;
+        }
+        @media (max-width: 768px) {
+            .flatpickr-calendar.showMonths-2 .flatpickr-month {
+                width: 100%;
+            }
+            .flatpickr-calendar {
+                width: 300px !important;
+            }
+        }
+
+        /* Language dropdown styles */
+        .language-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .language-dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 15px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            margin-top: 10px;
+        }
+
+        .language-dropdown-content.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .language-option {
+            color: var(--dark-gray);
+            padding: 12px 20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .language-option:hover {
+            background: rgba(42, 82, 152, 0.1);
+            color: var(--primary-color);
+        }
+
+        .language-option.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .language-option img {
+            width: 20px;
+            height: 15px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hotel-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 40px 0 0 0;
+            justify-content: center;
+        }
+        .hotel-card {
+            background: rgba(255,255,255,0.97);
+            border-radius: 18px;
+            box-shadow: 0 4px 18px rgba(42,82,152,0.10);
+            overflow: hidden;
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s, transform 0.3s;
+            position: relative;
+            border: 1px solid #e9ecef;
+        }
+        .hotel-card:hover {
+            box-shadow: 0 8px 32px rgba(42,82,152,0.18);
+            transform: translateY(-6px) scale(1.02);
+        }
+        .hotel-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+        }
+        .hotel-card-body {
+            padding: 18px 20px 16px 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .hotel-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 6px;
+        }
+        .hotel-card-address {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .hotel-card-stars {
+            color: #FFD700;
+            margin-bottom: 8px;
+        }
+        .hotel-card-desc {
+            font-size: 15px;
+            color: #444;
+            margin-bottom: 12px;
+            flex: 1;
+        }
+        .hotel-card-price {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 0;
+        }
+        @media (max-width: 768px) {
+            .hotel-list {
+                gap: 18px;
+            }
+            .hotel-card {
+                width: 95vw;
+                max-width: 350px;
+            }
+        }
+        .hotel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .hotel-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .hotel-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .hotel-image {
+            height: 180px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .hotel-info {
+            padding: 15px;
+        }
+        
+        .hotel-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .hotel-location {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .hotel-price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo-container">
+            <img src="./logo.png" alt="Logo" class="animate__animated animate__fadeIn">
+            <div class="site-name animate__animated animate__fadeIn">Travel ENIGMA</div>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="animate__animated animate__fadeIn animate__delay-1s">Khuyến mãi</a>
+            <div class="language-dropdown">
+                <a href="#" onclick="toggleLanguageDropdown(event)" class="animate__animated animate__fadeIn animate__delay-1s">
+                    <i class="fas fa-globe"></i> <span class="lang-text" data-translate="language">Ngôn ngữ</span>
+                </a>
+                <div class="language-dropdown-content" id="languageDropdown">
+                    <div class="language-option active" onclick="changeLanguage('vi')">
+                        <img src="https://flagcdn.com/w20/vn.png" alt="Vietnamese">
+                        Tiếng Việt
+                    </div>
+                    <div class="language-option" onclick="changeLanguage('en')">
+                        <img src="https://flagcdn.com/w20/us.png" alt="English">
+                        English
+                    </div>
+                </div>
+            </div>
+            <a href="#" onclick="login()" class="animate__animated animate__fadeIn animate__delay-1s" data-translate="login">Đăng nhập</a>
+            <a href="#" onclick="register()" class="animate__animated animate__fadeIn animate__delay-1s">Đăng ký</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="tabs-container animate__animated animate__fadeInUp">
+            <div class="tabs">
+                <button class="active">
+                    <i class="fa-solid fa-hotel"></i>
+                    Khách sạn
+                </button>
+                <button>
+                    <i class="fa-solid fa-plane"></i>
+                    Vé máy bay
+                </button>
+                <button>
+                    <i class="fa-solid fa-bus"></i>
+                    Vé xe khách
+                </button>
+               
+                </div>  
+            
+        </div>
+        <div class="sub-tabs">
+                <button class="sub-tab active"><i class="fas fa-hotel"></i> Khách sạn</button>
+                <button class="sub-tab"><i class="fas fa-umbrella-beach"></i> Resort</button>
+                <button class="sub-tab"><i class="fas fa-home"></i> Biệt thự</button>
+                <button class="sub-tab"><i class="fas fa-building"></i> Căn hộ</button>
+            </div>
+        <div class="search-container animate__animated animate__fadeInUp animate__delay-1s">
+           <div class="search-bar">
+    <input type="text" id="destination" placeholder="Thành phố, khách sạn, điểm đến" aria-label="Destination">
+    <input type="text" id="checkin" placeholder="Ngày nhận phòng và trả phòng" readonly>
+    <div class="guests-dropdown-container">
+                    <input type="text" id="guests" placeholder="Số lượng người đi" readonly onclick="toggleDropdown()">
+                    <div id="dropdown" class="dropdown">
+                        <div>
+                            <span>Người lớn</span>
+                            <div class="counter">
+                                <button onclick="updateGuests('adults', -1)" id="decrease-adults">-</button>
+                                <span id="adults" class="counter-value">2</span>
+                                <button onclick="updateGuests('adults', 1)" id="increase-adults">+</button>
+                            </div>
+                        </div>
+                        <div>
+                            <span>Trẻ em</span>
+                            <div class="counter">
+                                <button onclick="updateGuests('children', -1)" id="decrease-children">-</button>
+                                <span id="children" class="counter-value">0</span>
+                                <button onclick="updateGuests('children', 1)" id="increase-children">+</button>
+                            </div>
+                        </div>
+                        <div>
+                            <span>Phòng</span>
+                            <div class="counter">
+                                <button onclick="updateGuests('rooms', -1)" id="decrease-rooms">-</button>
+                                <span id="rooms" class="counter-value">1</span>
+                                <button onclick="updateGuests('rooms', 1)" id="increase-rooms">+</button>
+                            </div>
+                        </div>
+                        <button id="confirm-btn" onclick="confirmGuests()">XONG</button>
+                    </div>
+                </div>
+                <button class="search-btn" onclick="searchAccommodation()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                  
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <h2>Nhiều lựa chọn khách sạn</h2>
+        
+        <div class="hotel-grid">
+            <!-- Hotel Card 1 -->
+            <div class="hotel-card">
+                <div class="hotel-image" style="background-image: url('https://example.com/hotel1.jpg')"></div>
+                <div class="hotel-info">
+                    <div class="hotel-name">Khách sạn Luxury</div>
+                    <div class="hotel-location">Quận 1, TP.HCM</div>
+                    <div class="hotel-price">1.200.000đ/đêm</div>
+                </div>
+            </div>
+            
+            <!-- Hotel Card 2 -->
+            <div class="hotel-card">
+                <div class="hotel-image" style="background-image: url('https://example.com/hotel2.jpg')"></div>
+                <div class="hotel-info">
+                    <div class="hotel-name">Resort Biển Xanh</div>
+                    <div class="hotel-location">Nha Trang, Khánh Hòa</div>
+                    <div class="hotel-price">2.500.000đ/đêm</div>
+                </div>
+            </div>
+            
+            <!-- Hotel Card 3 -->
+            <div class="hotel-card">
+                <div class="hotel-image" style="background-image: url('https://example.com/hotel3.jpg')"></div>
+                <div class="hotel-info">
+                    <div class="hotel-name">Homestay Đà Lạt</div>
+                    <div class="hotel-location">Đà Lạt, Lâm Đồng</div>
+                    <div class="hotel-price">800.000đ/đêm</div>
+                </div>
+            </div>
+            
+            <!-- Hotel Card 4 -->
+            <div class="hotel-card">
+                <div class="hotel-image" style="background-image: url('https://example.com/hotel4.jpg')"></div>
+                <div class="hotel-info">
+                    <div class="hotel-name">Khách sạn Hà Nội</div>
+                    <div class="hotel-location">Hoàn Kiếm, Hà Nội</div>
+                    <div class="hotel-price">1.000.000đ/đêm</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hotel list render area -->
+    <div id="hotel-list" class="hotel-list"></div>
+
+    <script>
+        // Language translations
+        const translations = {
+            vi: {
+                title: "Travel ENIGMA - Tìm kiếm khách sạn",
+                hotel: "Khách sạn",
+                resort: "Resort",
+                villa: "Biệt thự",
+                apartment: "Căn hộ",
+                promotion: "Khuyến mãi",
+                language: "Ngôn ngữ",
+                login: "Đăng nhập",
+                register: "Đăng ký",
+                search: "Tìm kiếm",
+                destination: "Thành phố, khách sạn, điểm đến",
+                checkin: "Ngày nhận phòng và trả phòng",
+                guests: "Số lượng người đi",
+                adults: "Người lớn",
+                children: "Trẻ em",
+                rooms: "Phòng",
+                confirm: "XONG",
+                searchBtn: "Tìm kiếm",
+                alertSuccess: "Tìm kiếm thành công!\n\nĐiểm đến: {destination}\nNgày nhận phòng: {checkin}\nNgày trả phòng: {checkout}\n{guests}\n\nKết quả:\n- ENIGMA Resort\n- ENIGMA Villa\n- ENIGMA Luxury Hotel",
+                alertMissing: "Vui lòng nhập đầy đủ thông tin!",
+                alertRegister: "Chức năng đăng ký sẽ được cập nhật trong phiên bản tiếp theo!",
+                alertLogin: "Chức năng đăng nhập sẽ được cập nhật!"
+            },
+            en: {
+                title: "Travel ENIGMA - Hotel Search",
+                hotel: "Hotel",
+                resort: "Resort",
+                villa: "Villa",
+                apartment: "Apartment",
+                promotion: "Promotion",
+                language: "Language",
+                login: "Login",
+                register: "Register",
+                search: "Search",
+                destination: "City, hotel, destination",
+                checkin: "Check-in and check-out dates",
+                guests: "Number of guests",
+                adults: "Adults",
+                children: "Children",
+                rooms: "Rooms",
+                confirm: "DONE",
+                searchBtn: "Search",
+                alertSuccess: "Search successful!\n\nDestination: {destination}\nCheck-in: {checkin}\nCheck-out: {checkout}\n{guests}\n\nResults:\n- ENIGMA Resort\n- ENIGMA Villa\n- ENIGMA Luxury Hotel",
+                alertMissing: "Please fill in all information!",
+                alertRegister: "Register function will be updated in the next version!",
+                alertLogin: "Login function will be updated!"
+            }
+        };
+
+        // Current language
+        let currentLang = 'vi';
+
+        // Toggle language dropdown
+        function toggleLanguageDropdown(event) {
+            event.preventDefault();
+            const dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Change language
+        function changeLanguage(lang) {
+            currentLang = lang;
+            // Update all elements with data-translate
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            // Update placeholders
+            document.getElementById('destination').setAttribute('placeholder', translations[lang].destination);
+            document.getElementById('checkin').setAttribute('placeholder', translations[lang].checkin);
+            document.getElementById('guests').setAttribute('placeholder', translations[lang].guests);
+            // Update confirm button
+            document.getElementById('confirm-btn').textContent = translations[lang].confirm;
+            // Update search button text only
+            const searchBtnText = document.querySelector('.search-btn-text');
+            if (searchBtnText) searchBtnText.textContent = translations[lang].searchBtn;
+            // Update language text only
+            const langText = document.querySelector('.lang-text');
+            if (langText) langText.textContent = translations[lang].language;
+            // Update active state in language dropdown
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            // Close dropdown
+            document.getElementById('languageDropdown').classList.remove('show');
+            // Update document title
+            document.title = translations[lang].title;
+        }
+
+        // Update alert messages to use translations
+        function searchAccommodation() {
+            const destination = document.getElementById('destination').value;
+            const checkinInput = document.getElementById('checkin').value;
+            const guests = document.getElementById('guests').value;
+            if (destination && checkinInput && guests) {
+                const [checkin, checkout] = checkinInput.split(' - ');
+                const searchBtn = document.querySelector('.search-btn');
+                searchBtn.classList.add('animate__animated', 'animate__pulse');
+                setTimeout(() => {
+                    searchBtn.classList.remove('animate__animated', 'animate__pulse');
+                }, 1000);
+                // Lọc khách sạn theo thành phố (không phân biệt hoa thường)
+                const filtered = hotels.filter(hotel => hotel.city.toLowerCase().includes(destination.trim().toLowerCase()));
+                setTimeout(() => {
+                    renderHotelCards(filtered);
+                    alert(translations[currentLang].alertSuccess
+                        .replace('{destination}', destination)
+                        .replace('{checkin}', checkin || '')
+                        .replace('{checkout}', checkout || '')
+                        .replace('{guests}', guests)
+                    );
+                }, 800);
+            } else {
+                const inputs = document.querySelectorAll('.search-bar input');
+                inputs.forEach(input => {
+                    if (!input.value) {
+                        input.classList.add('animate__animated', 'animate__shakeX');
+                        setTimeout(() => {
+                            input.classList.remove('animate__animated', 'animate__shakeX');
+                        }, 1000);
+                    }
+                });
+                alert(translations[currentLang].alertMissing);
+            }
+        }
+
+        // Update register alert
+        function register() {
+            alert(translations[currentLang].alertRegister);
+        }
+
+        // Update login alert
+        function login() {
+            alert(translations[currentLang].alertLogin);
+        }
+
+        // Close dropdown when clicking outside (improved)
+        window.addEventListener('click', function(event) {
+            const langDropdown = document.getElementById('languageDropdown');
+            const langBtn = document.querySelector('.language-dropdown > a');
+            if (
+                langDropdown.classList.contains('show') &&
+                !langDropdown.contains(event.target) &&
+                !langBtn.contains(event.target)
+            ) {
+                langDropdown.classList.remove('show');
+            }
+        });
+
+        // Add data-translate attributes to elements
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('title').setAttribute('data-translate', 'title');
+            document.querySelector('.sub-tab:nth-child(1)').setAttribute('data-translate', 'hotel');
+            document.querySelector('.sub-tab:nth-child(2)').setAttribute('data-translate', 'resort');
+            document.querySelector('.sub-tab:nth-child(3)').setAttribute('data-translate', 'villa');
+            document.querySelector('.sub-tab:nth-child(4)').setAttribute('data-translate', 'apartment');
+            document.querySelector('.nav-links a[data-translate="promotion"]')?.setAttribute('data-translate', 'promotion');
+            document.querySelector('.nav-links .language-dropdown > a').setAttribute('data-translate', 'language');
+            document.querySelector('.nav-links a[onclick*="login"]')?.setAttribute('data-translate', 'login');
+            document.querySelector('.nav-links a[onclick*="register"]')?.setAttribute('data-translate', 'register');
+            document.getElementById('confirm-btn').setAttribute('data-translate', 'confirm');
+            document.querySelector('.search-btn').insertAdjacentHTML('beforeend', `<span data-translate="searchBtn">${translations[currentLang].searchBtn}</span>`);
+        });
+
+flatpickr("#checkin", {
+            mode: "range",
+            dateFormat: "d/m/Y",
+            minDate: "today",
+            showMonths: 2,
+            locale: "vi",
+            onChange: function(selectedDates, dateStr, instance) {
+                if (selectedDates.length === 2) {
+                    const [start, end] = selectedDates;
+                    document.getElementById('checkin').value = `${start.getDate()}/${start.getMonth() + 1}/${start.getFullYear()} - ${end.getDate()}/${end.getMonth() + 1}/${end.getFullYear()}`;
+                }
+            }
+        });
+
+        // Khai báo biến
+        let adults = 2;
+        let children = 0;
+        let rooms = 1;
+        const MAX_ADULTS = 10;
+        const MAX_CHILDREN = 5;
+        const MAX_ROOMS = 5;
+        
+        // Hiệu ứng scroll cho navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Toggle dropdown chọn số lượng
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown');
+            dropdown.classList.toggle('show');
+            
+            // Tự động điều chỉnh số phòng nếu cần
+            adjustRoomsBasedOnGuests();
+        }
+        
+        // Cập nhật số lượng khách/phòng
+        function updateGuests(type, change) {
+            let element, currentValue, maxValue;
+            
+            if (type === 'adults') {
+                element = document.getElementById('adults');
+                currentValue = adults;
+                maxValue = MAX_ADULTS;
+            } else if (type === 'children') {
+                element = document.getElementById('children');
+                currentValue = children;
+                maxValue = MAX_CHILDREN;
+            } else if (type === 'rooms') {
+                element = document.getElementById('rooms');
+                currentValue = rooms;
+                maxValue = MAX_ROOMS;
+            }
+            
+            // Tính toán giá trị mới với giới hạn min/max
+            const newValue = Math.max(
+                type === 'adults' || type === 'rooms' ? 1 : 0, 
+                Math.min(currentValue + change, maxValue)
+            );
+            
+            // Cập nhật giá trị
+            if (type === 'adults') {
+                adults = newValue;
+            } else if (type === 'children') {
+                children = newValue;
+            } else if (type === 'rooms') {
+                rooms = newValue;
+            }
+            
+            // Hiển thị giá trị mới
+            element.textContent = newValue;
+            
+            // Cập nhật trạng thái nút +/-
+            updateButtonStates();
+            
+            // Hiệu ứng thay đổi giá trị
+            element.classList.add('value-changed');
+            setTimeout(() => element.classList.remove('value-changed'), 300);
+            
+            // Cập nhật input và điều chỉnh phòng
+            updateGuestsInput();
+        }
+        
+        // Tự động điều chỉnh số phòng dựa trên số khách
+        function adjustRoomsBasedOnGuests() {
+            const totalGuests = adults + children;
+            const requiredRooms = Math.ceil(totalGuests / 4); // Mỗi phòng tối đa 4 người
+            
+            if (rooms < requiredRooms) {
+                rooms = requiredRooms;
+                document.getElementById('rooms').textContent = rooms;
+                updateGuestsInput();
+            }
+        }
+        
+        // Cập nhật trạng thái các nút +/-
+        function updateButtonStates() {
+            document.getElementById('decrease-adults').disabled = adults <= 1;
+            document.getElementById('increase-adults').disabled = adults >= MAX_ADULTS;
+            document.getElementById('decrease-children').disabled = children <= 0;
+            document.getElementById('increase-children').disabled = children >= MAX_CHILDREN;
+            document.getElementById('decrease-rooms').disabled = rooms <= 1;
+            document.getElementById('increase-rooms').disabled = rooms >= MAX_ROOMS;
+        }
+        
+        // Cập nhật input hiển thị
+        function updateGuestsInput() {
+            const input = document.getElementById('guests');
+            let summary = [];
+            
+            if (adults > 0) {
+                summary.push(`${adults} người lớn`);
+            }
+            if (children > 0) {
+                summary.push(`${children} trẻ em`);
+            }
+            if (rooms > 0) {
+                summary.push(`${rooms} phòng`);
+            }
+            
+            input.value = summary.join(', ');
+        }
+        
+        // Xác nhận chọn số lượng
+        function confirmGuests() {
+            updateGuestsInput();
+            toggleDropdown();
+            
+            // Hiệu ứng khi xác nhận
+            const confirmBtn = document.getElementById('confirm-btn');
+            confirmBtn.classList.add('confirmed');
+            setTimeout(() => confirmBtn.classList.remove('confirmed'), 300);
+        }
+
+        const hotels = [
+            {
+                name: "ENIGMA Luxury Hotel",
+                city: "Hồ Chí Minh",
+                address: "123 Lê Lợi, Quận 1",
+                image: "hotel-hcm.jpg",
+                stars: 5,
+                description: "Khách sạn sang trọng trung tâm Sài Gòn.",
+                price: 1200000
+            },
+            {
+                name: "ENIGMA Riverside",
+                city: "Đà Nẵng",
+                address: "456 Bạch Đằng, Hải Châu",
+                image: "hotel-danang.jpg",
+                stars: 4,
+                description: "View sông Hàn, gần biển Mỹ Khê.",
+                price: 950000
+            },
+            {
+                name: "ENIGMA City Hotel",
+                city: "Hải Phòng",
+                address: "789 Trần Phú, Ngô Quyền",
+                image: "hotel-haiphong.jpg",
+                stars: 4,
+                description: "Khách sạn hiện đại, thuận tiện di chuyển.",
+                price: 800000
+            }
+            // ... thêm các khách sạn khác
+        ];
+
+        // Hiển thị danh sách khách sạn dạng card
+        function renderHotelCards(hotelsToShow) {
+            const listDiv = document.getElementById('hotel-list');
+            if (!hotelsToShow || hotelsToShow.length === 0) {
+                listDiv.innerHTML = `<div style='color:#888;font-size:18px;text-align:center;width:100%'>Không tìm thấy khách sạn phù hợp.</div>`;
+                return;
+            }
+            listDiv.innerHTML = hotelsToShow.map(hotel => `
+                <div class="hotel-card animate__animated animate__fadeInUp">
+                    <img src="${hotel.image}" alt="${hotel.name}">
+                    <div class="hotel-card-body">
+                        <div class="hotel-card-title">${hotel.name}</div>
+                        <div class="hotel-card-address"><i class='fas fa-map-marker-alt'></i> ${hotel.address}, ${hotel.city}</div>
+                        <div class="hotel-card-stars">${'★'.repeat(hotel.stars)}${'☆'.repeat(5-hotel.stars)}</div>
+                        <div class="hotel-card-desc">${hotel.description}</div>
+                        <div class="hotel-card-price">${hotel.price.toLocaleString('vi-VN')} đ/đêm</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</body>
+</html>
