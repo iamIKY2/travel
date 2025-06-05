@@ -4,521 +4,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel ENIGMA - Đặt vé trực tuyến</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Animate.css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <!-- Custom CSS -->
-    <style>
- 
-     
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center top;
-            background-size: cover;
-            background-attachment: fixed;
-            position: relative;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: -1;
-        }
-
-        .navbar {
-    background: linear-gradient(135deg, #0b64fd, #ECFAE5) !important;
-    padding: 10px 5%;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.navbar.scrolled {
-    padding: 8px 5%;
-    background: rgba(30, 60, 114, 0.95) !important;
-    backdrop-filter: blur(10px);
-}
-
-.navbar-brand {
-    display: flex;
-    align-items: center;
-}
-
-.navbar-nav {
-    gap: 10px;
-}
-
-.nav-link {
-    color: white !important;
-    font-weight: 500;
-    padding: 8px 15px !important;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.nav-link:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: white;
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-}
-
-.nav-link:hover::after {
-    width: 70%;
-}
-
-.dropdown-menu {
-    background: rgba(255, 255, 255, 0.95);
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    backdrop-filter: blur(10px);
-}
-
-.dropdown-item {
-    padding: 10px 20px;
-    color: var(--dark-gray);
-    transition: all 0.3s ease;
-}
-
-.dropdown-item:hover, .dropdown-item:focus {
-    background: rgba(42, 82, 152, 0.1);
-    color: var(--primary-color);
-}
-
-
-
-        .language-dropdown {
-            position: relative;
-            display: inline-block;
-        }
- .language-dropdown > a {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .language-dropdown i {
-            font-size: 18px;
-            vertical-align: middle;
-        }
-        .language-dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            border-radius: 15px;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            margin-top: 10px;
-        }
-
-        .language-dropdown-content.show {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .language-option {
-            color: var(--dark-gray);
-            padding: 12px 20px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .language-option:hover {
-            background: rgba(42, 82, 152, 0.1);
-            color: var(--primary-color);
-        }
-
-        .language-option.active {
-            background: #e6f0fa;
-    color: #2a5298 !important;
-    font-weight: 600;
-        }
-
-        .language-option img {
-            width: 20px;
-            height: 15px;
-            object-fit: cover;
-            border-radius: 2px;
-        }
-
-       
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 8px 15px;
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .logo-container:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .logo-container img {
-            height: 35px;
-            width: auto;
-            transition: transform 0.3s ease;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-            background: rgba(255, 255, 255, 0.95);
-            padding: 6px;
-            border-radius: 8px;
-            object-fit: contain;
-        }
-
-        .logo-container img:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-        }
-
-        .site-name {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            background: linear-gradient(to right, #fff, #e0e0e0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-       
-
-        /* Main Content */
-        .main-content {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            margin: 30px auto;
-            padding: 30px;
-            max-width: 1200px;
-        }
-
-        /* Search Section */
-        .search-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-        }
-
-        .search-title {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        /* Hotel Cards */
-        .hotel-card {
-            border: none;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            margin-bottom: 25px;
-            background: white;
-            display: flex;
-            flex-direction: column;
-             height: 100%;
-        }
-
-        .hotel-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .hotel-img {
-            height: 200px;
-            object-fit: cover;
-            width: 100%;
-            flex: 1 1 auto; /* giúp nội dung giãn đều */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .hotel-card-body {
-            padding: 20px;
-        }
-
-        .hotel-title {
-            font-weight: 700;
-            color: var(--dark-blue);
-            margin-bottom: 10px;
-        }
-
-        .hotel-location {
-            color: var(--dark-gray);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-
-        .hotel-rating {
-            color: #ffc107;
-            margin-bottom: 10px;
-        }
-
-        .hotel-price {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--secondary-color);
-        }
-
-        .hotel-price small {
-            font-size: 0.8rem;
-            color: var(--dark-gray);
-        }
-
-        .btn-book {
-            background-color: #850000;
-    color: #fff;
-    border-radius: 25px;
-    padding: 10px 30px;
-    transition: all 0.4s ease;
-    transform: scale(1);
-        }
-
-        .btn-book:hover {
-            background-color: #dd9933;
-    color: #fff;
-    transform: scale(1.05);
-    box-shadow: 0 8px 15px rgba(255, 158, 13, 0.3);
-        }
-
-        /* Amenities */
-        .amenities {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .amenity {
-            background: var(--light-gray);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Section Titles */
-        .section-title {
-            position: relative;
-            margin-bottom: 30px;
-            padding-bottom: 10px;
-            color: var(--dark-blue);
-            font-weight: 700;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--secondary-color);
-        }
-
-        /* Pricing Section */
-        .pricing-section {
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 50px 0;
-            border-radius: 15px;
-            margin: 40px 0;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-        }
-
-        /* Footer */
-        .footer {
-            background: linear-gradient(135deg, var(--dark-blue), var(--primary-color));
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideInUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Responsive styles */
-@media (max-width: 992px) {
-    .navbar-collapse {
-        background: rgba(30, 60, 114, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 0 0 15px 15px;
-        padding: 15px;
-        margin-top: 10px;
-    }
-    
-    .navbar-nav .nav-item.dropdown .nav-link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 6px;
-  }
-    
-    .dropdown-menu {
-        background: rgba(255, 255, 255, 0.1);
-        box-shadow: none;
-    }
-    
-    .dropdown-item {
-        color: white !important;
-    }
-    
-    .dropdown-item:hover {
-        background: rgba(255, 255, 255, 0.2) !important;
-    }
-    
-    .language-option.active {
-        background: rgba(255, 255, 255, 0.3) !important;
-    }
-}
-
-        .btn-search-custom {
-    background: linear-gradient(90deg, #0b64fd , #ff6200 );
-    color: #fff;
-    border: none;
-    margin-top: 31px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    box-shadow: 0 4px 15px rgba(5, 78, 205, 0.452);
-    transition: all 0.4s ease-in-out; /* Mượt hơn */
-    outline: none;
-    background-size: 200% auto; /* Cho phép di chuyển gradient */
-    background-position: left center;
-}
-
-.btn-search-custom:hover,
-.btn-search-custom:focus {
-    background-position: right center; /* Di chuyển gradient */
-    color: #fff;
-    transform: translateY(-2px) scale(1.04);
-    box-shadow: 0 10px 28px rgba(255, 98, 0, 0.35);
-}
-    </style>
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+    <div id="notification" class="notification alert alert-dismissible fade show" role="alert" style="display: none;">
+        <span id="notificationMessage"></span>
+        <button id="closeNotification" type="button" class="btn-close" aria-label="Close"></button>
+    </div>
     <!-- Navigation -->
-   <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container">
-        <div class="logo-container">
-            <img src="./logo.png" alt="Travel ENIGMA Logo" class="animate__animated animate__fadeIn">
-            <div class="site-name animate__animated animate__fadeIn">Travel ENIGMA</div>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+            <div class="logo-container">
+                <img src="images/logo.png" alt="Travel ENIGMA Logo" class="animate__animated animate__fadeIn">
+                <div class="site-name animate__animated animate__fadeIn">Travel ENIGMA</div>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-translate="home">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#hotels" data-translate="hotels">Khách sạn</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing" data-translate="promotion">Khuyến mãi</a>
+                    </li>
+                    <li class="nav-item language-dropdown">
+                        <a class="nav-link" href="#" id="languageDropdown">
+                            <i class="fas fa-globe"></i> <span class="lang-text" data-translate="language">Ngôn ngữ</span>
+                        </a>
+                        <div class="language-dropdown-content" id="languageDropdownContent">
+                            <a class="language-option active" href="#" data-lang="vi">
+                                <img src="https://flagcdn.com/w20/vn.png" alt="Vietnamese Flag"> Tiếng Việt
+                            </a>
+                            <a class="language-option" href="#" data-lang="en">
+                                <img src="https://flagcdn.com/w20/us.png" alt="English Flag"> English
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" id="userDropdown" style="display: none;">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" id="usernameLink">
+                            <span id="username">Tên người dùng</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="dashboard.html" data-translate="account_info">Thông tin tài khoản</a></li>
+                            <li><a class="dropdown-item" href="/dashboard#bookings" data-translate="bookings">Phòng đã đặt chỗ</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logoutLink" data-translate="logout">Đăng xuất</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" id="authLinkItem">
+                        <a class="nav-link" href="#" id="authLink" data-bs-toggle="modal" data-bs-target="#authModal" data-tab="login" data-translate="login">Đăng nhập</a>
+                    </li>
+                    <li class="nav-item" id="registerLink">
+                        <a class="nav-link" href="#" id="registerLinkAnchor" data-bs-toggle="modal" data-bs-target="#authModal" data-tab="register" data-translate="register">Đăng ký</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        
-        <!-- Nút toggle cho mobile -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <!-- Menu chính -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-translate="home">Trang chủ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#hotels" data-translate="hotels">Khách sạn</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#pricing" data-translate="promotion">Khuyến mãi</a>
-                </li>
-                <li class="nav-item dropdown language-dropdown">
-                    <a class="nav-link dropdown-toggle text-center w-100" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-globe"></i> <span class="lang-text" data-translate="language">Ngôn ngữ</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-                        <li><a class="dropdown-item language-option active" href="#" data-lang="vi">
-                            <img src="https://flagcdn.com/w20/vn.png" alt="Vietnamese Flag"> Tiếng Việt
-                        </a></li>
-                        <li><a class="dropdown-item language-option" href="#" data-lang="en">
-                            <img src="https://flagcdn.com/w20/us.png" alt="English Flag"> English
-                        </a></li>
+    </nav>
+
+    <!-- Auth Modal -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="authModalLabel">Đăng nhập / Đăng ký</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="authTabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="login-tab" data-bs-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Đăng nhập</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="register-tab" data-bs-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Đăng ký</a>
+                        </li>
                     </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-translate="login">Đăng nhập</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-translate="register">Đăng ký</a>
-                </li>
-            </ul>
+                    <div class="tab-content mt-3">
+                        <!-- Login Form -->
+                        <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                            <form id="loginForm" class="row g-2">
+                                <div class="col-12 form-group">
+                                    <label for="loginUsername" class="form-label">Tên đăng nhập</label>
+                                    <input type="text" class="form-control" id="loginUsername" required>
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label for="loginPassword" class="form-label">Mật khẩu</label>
+                                    <input type="password" class="form-control" id="loginPassword" required>
+                                </div>
+                                <div class="col-12 d-flex justify-content-between align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                                        <label class="form-check-label" for="rememberMe">Ghi nhớ</label>
+                                    </div>
+                                    <a href="#" id="forgotPasswordLink">Quên mật khẩu?</a>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-search-custom w-100">Đăng nhập</button>
+                                </div>
+                                <div class="col-12 text-center mt-2">
+                                    <p class="small">Chưa có tài khoản? <a href="#" id="switchToRegister">Đăng ký</a></p>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Register Form -->
+                        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                            <form id="registerForm" class="row g-2">
+                                <div class="col-12 form-group">
+                                    <label for="registerUsername" class="form-label">Tên đăng nhập</label>
+                                    <input type="text" class="form-control" id="registerUsername" required>
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label for="registerEmail" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="registerEmail" required>
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label for="registerPhone" class="form-label">Số điện thoại</label>
+                                    <input type="tel" class="form-control" id="registerPhone" required pattern="[0-9]{10,11}">
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label for="registerPassword" class="form-label">Mật khẩu</label>
+                                    <input type="password" class="form-control" id="registerPassword" required>
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label for="confirmPassword" class="form-label">Xác minh mật khẩu</label>
+                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-search-custom w-100">Đăng ký</button>
+                                </div>
+                                <div class="col-12 text-center mt-2">
+                                    <p class="small">Đã có tài khoản? <a href="#" id="switchToLogin">Đăng nhập</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
 
     <!-- Main Content -->
     <div class="container main-content animate__animated animate__fadeIn">
         <!-- Search Section -->
         <section class="search-section mb-5">
             <h2 class="search-title" data-translate="search_title">Tìm kiếm khách sạn</h2>
-            <div class="row">
+            <form id="searchForm" class="row">
                 <div class="col-md-6 mb-3">
                     <label for="destination" class="form-label" data-translate="destination">Địa điểm</label>
                     <input type="text" class="form-control" id="destination" placeholder="Nhập thành phố hoặc điểm đến">
@@ -531,8 +168,6 @@
                     <label for="check-out" class="form-label" data-translate="check_out">Ngày đi</label>
                     <input type="date" class="form-control" id="check-out">
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-3 mb-3">
                     <label for="guests" class="form-label" data-translate="guests">Số khách</label>
                     <select class="form-select" id="guests">
@@ -552,29 +187,24 @@
                         <option value="4">4 phòng</option>
                     </select>
                 </div>
-                <div class="col-md-6 mb-3 d-flex align-items-center justify-content-end">
-                    <button class="btn btn-search-custom w-100 py-2" data-translate="search">Tìm kiếm</button>
+                <div class="col-md-6 mb-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-search-custom w-100 py-2" data-translate="search">Tìm kiếm</button>
                 </div>
-            </div>
+            </form>
         </section>
 
         <!-- Featured Hotels -->
         <section id="hotels" class="mb-5">
             <h2 class="section-title" data-translate="featured_hotels">Khách sạn nổi bật</h2>
             <div class="row">
-                <!-- Hotel 1 -->
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="hotel-card animate__animated animate__fadeInUp">
-                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="hotel-img" alt="Luxury Hotel">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" class="hotel-img" alt="Luxury Hotel">
                         <div class="hotel-card-body">
                             <h5 class="hotel-title" data-translate="hotel1_name">Khách sạn Luxury Horizon</h5>
                             <p class="hotel-location" data-translate="hotel1_location"><i class="fas fa-map-marker-alt me-2"></i> Quận 1, TP.HCM</p>
                             <div class="hotel-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                             </div>
                             <div class="amenities">
                                 <span class="amenity"><i class="fas fa-wifi"></i> <span data-translate="wifi">WiFi</span></span>
@@ -585,25 +215,19 @@
                                 <div class="hotel-price">
                                     2.500.000đ <small data-translate="per_night">/đêm</small>
                                 </div>
-                                <button class="btn btn-book" data-translate="book_now">Đặt ngay</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Hotel 2 -->
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="hotel-card animate__animated animate__fadeInUp animate__delay-1s">
-                        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="hotel-img" alt="Beach Resort">
+                        <a href="hotel/The Imperial Vung Tau.html">
+                        <img src="https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10019885-6dba465809edf7d9bf3d0c7cf2308a33.jpeg?_src=imagekit&tr=dpr-2,c-at_max,f-jpg,h-360,pr-true,q-80,w-640" class="hotel-img" alt="Beach Resort">
                         <div class="hotel-card-body">
-                            <h5 class="hotel-title" data-translate="hotel2_name">Khu nghỉ dưỡng Beach Paradise</h5>
-                            <p class="hotel-location" data-translate="hotel2_location"><i class="fas fa-map-marker-alt me-2"></i> Nha Trang, Khánh Hòa</p>
+                            <h5 class="hotel-title" data-translate="hotel2_name">The Imperial Vung Tau Hotel & Resort</h5></a>
+                            <p class="hotel-location" data-translate="hotel2_location"><i class="fas fa-map-marker-alt me-2"></i> Vũng Tàu, Bà Rịa - Vũng Tàu</p>
                             <div class="hotel-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                             </div>
                             <div class="amenities">
                                 <span class="amenity"><i class="fas fa-wifi"></i> <span data-translate="wifi">WiFi</span></span>
@@ -615,25 +239,19 @@
                                 <div class="hotel-price">
                                     3.200.000đ <small data-translate="per_night">/đêm</small>
                                 </div>
-                                <button class="btn btn-book" data-translate="book_now">Đặt ngay</button>
+                                <button class="btn btn-book" data-room="The Imperial Vung Tau Hotel & Resort" data-details="Phòng đơn, view biển" data-price="3200000" data-translate="book_now">Đặt ngay</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Hotel 3 -->
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="hotel-card animate__animated animate__fadeInUp animate__delay-2s">
-                        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="hotel-img" alt="Mountain View">
+                        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" class="hotel-img" alt="Mountain View">
                         <div class="hotel-card-body">
                             <h5 class="hotel-title" data-translate="hotel3_name">Khách sạn Mountain View</h5>
                             <p class="hotel-location" data-translate="hotel3_location"><i class="fas fa-map-marker-alt me-2"></i> Đà Lạt, Lâm Đồng</p>
                             <div class="hotel-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
                             </div>
                             <div class="amenities">
                                 <span class="amenity"><i class="fas fa-wifi"></i> <span data-translate="wifi">WiFi</span></span>
@@ -644,25 +262,19 @@
                                 <div class="hotel-price">
                                     1.800.000đ <small data-translate="per_night">/đêm</small>
                                 </div>
-                                <button class="btn btn-book" data-translate="book_now">Đặt ngay</button>
+                                <button class="btn btn-book" data-room="Khách sạn Mountain View" data-details="Phòng đôi, view núi" data-price="1800000" data-translate="book_now">Đặt ngay</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Hotel 4 -->
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="hotel-card animate__animated animate__fadeInUp">
-                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="hotel-img" alt="City Center">
+                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" class="hotel-img" alt="City Center">
                         <div class="hotel-card-body">
                             <h5 class="hotel-title" data-translate="hotel4_name">Khách sạn City Center</h5>
                             <p class="hotel-location" data-translate="hotel4_location"><i class="fas fa-map-marker-alt me-2"></i> Quận 3, TP.HCM</p>
                             <div class="hotel-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                             </div>
                             <div class="amenities">
                                 <span class="amenity"><i class="fas fa-wifi"></i> <span data-translate="wifi">WiFi</span></span>
@@ -673,25 +285,19 @@
                                 <div class="hotel-price">
                                     2.100.000đ <small data-translate="per_night">/đêm</small>
                                 </div>
-                                <button class="btn btn-book" data-translate="book_now">Đặt ngay</button>
+                                <button class="btn btn-book" data-room="Khách sạn City Center" data-details="Phòng đơn, trung tâm" data-price="2100000" data-translate="book_now">Đặt ngay</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Hotel 5 -->
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="hotel-card animate__animated animate__fadeInUp animate__delay-1s">
-                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="hotel-img" alt="Riverside">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" class="hotel-img" alt="Riverside">
                         <div class="hotel-card-body">
                             <h5 class="hotel-title" data-translate="hotel5_name">Khách sạn Riverside</h5>
                             <p class="hotel-location" data-translate="hotel5_location"><i class="fas fa-map-marker-alt me-2"></i> Quận 5, TP.HCM</p>
                             <div class="hotel-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
                             </div>
                             <div class="amenities">
                                 <span class="amenity"><i class="fas fa-wifi"></i> <span data-translate="wifi">WiFi</span></span>
@@ -702,25 +308,19 @@
                                 <div class="hotel-price">
                                     1.900.000đ <small data-translate="per_night">/đêm</small>
                                 </div>
-                                <button class="btn btn-book" data-translate="book_now">Đặt ngay</button>
+                                <button class="btn btn-book" data-room="Khách sạn Riverside" data-details="Phòng đôi, view sông" data-price="1900000" data-translate="book_now">Đặt ngay</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Hotel 6 -->
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="hotel-card animate__animated animate__fadeInUp animate__delay-2s">
-                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" class="hotel-img" alt="Boutique">
+                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1480&q=80" class="hotel-img" alt="Boutique">
                         <div class="hotel-card-body">
                             <h5 class="hotel-title" data-translate="hotel6_name">Khách sạn Boutique</h5>
                             <p class="hotel-location" data-translate="hotel6_location"><i class="fas fa-map-marker-alt me-2"></i> Quận 2, TP.HCM</p>
                             <div class="hotel-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <i class="far fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i>
                             </div>
                             <div class="amenities">
                                 <span class="amenity"><i class="fas fa-wifi"></i> <span data-translate="wifi">WiFi</span></span>
@@ -731,7 +331,7 @@
                                 <div class="hotel-price">
                                     1.500.000đ <small data-translate="per_night">/đêm</small>
                                 </div>
-                                <button class="btn btn-book" data-translate="book_now">Đặt ngay</button>
+                                <button class="btn btn-book" data-room="Khách sạn Boutique" data-details="Phòng đơn, phong cách" data-price="1500000" data-translate="book_now">Đặt ngay</button>
                             </div>
                         </div>
                     </div>
@@ -739,171 +339,42 @@
             </div>
         </section>
 
-
-
-        <!-- Contact Section -->
-        <section id="contact" class="contact-section mb-5">
-            <h2 class="section-title" data-translate="contact">Liên hệ</h2>
-            <div class="row">
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h5 class="mb-3">Travel ENIGMA</h5>
-                    <p data-translate="travel_website">Trang web du lịch</p>
-                    <div class="social-icons">
-                        <a href="#" class="text-primary me-3"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-primary me-3"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-primary me-3"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="text-primary"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h5 class="mb-3" data-translate="contact_us">LIÊN HỆ</h5>
-                    <p><i class="fas fa-map-marker-alt me-2"></i> <span data-translate="address1">CS1: 170D/6 Phan Đăng Lưu, P3, Phú Nhuận, TP.HCM</span></p>
-                    <p><i class="fas fa-map-marker-alt me-2"></i> <span data-translate="address2">CS2: 662/3 Sư Vạn Hạnh, P12, Quận 10, TP.HCM</span></p>
-                    <p><i class="fa-solid fa-phone"></i> 090.190.120.5</p>
-                </div>
-                <div class="col-md-4">
-                    <h5 class="mb-3" data-translate="opening_hours">GIỜ MỞ CỬA</h5>
-                    <p data-translate="week_days">Thứ 2 - Chủ nhật</p>
-                    <p>09:00 - 22:00</p>
+       <!-- Contact Section -->
+    <section id="contact" class="contact-section mb-5">
+        <h2 class="section-title" data-translate="contact">Liên hệ</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <h5 class="mb-3">Travel ENIGMA</h5>
+                <p data-translate="travel_website">Trang web du lịch</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-        </section>
+            <div class="col-md-4 mb-4 mb-md-0">
+                <h5 class="mb-3" data-translate="contact_us">LIÊN HỆ</h5>
+                <p><i class="fas fa-map-marker-alt me-2"></i> <span data-translate="address1">CS1: 170D/6 Phan Đăng Lưu, P3, Phú Nhuận, TP.HCM</span></p>
+                <p><i class="fas fa-map-marker-alt me-2"></i> <span data-translate="address2">CS2: 662/3 Sư Vạn Hạnh, P12, Quận 10, TP.HCM</span></p>
+                <p><i class="fa-solid fa-phone"></i> 090.190.120.5</p>
+            </div>
+            <div class="col-md-4">
+                <h5 class="mb-3" data-translate="opening_hours">GIỜ MỞ CỬA</h5>
+                <p data-translate="week_days">Thứ 2 - Chủ nhật</p>
+                <p>09:00 - 22:00</p>
+            </div>
+        </div>
+    </section>
     </div>
 
     <!-- Footer -->
     <footer class="footer py-3">
-        <div class="container">
-            <p class="m-0">©ENIGMA-DEV-TEAM.Travel ENIGMA</p>
-        </div>
+        <p class="m-0">©ENIGMA-DEV-TEAM.Travel ENIGMA</p>
+
     </footer>
 
-    <!-- Bootstrap JS and Font Awesome for icons -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    
-    <!-- Custom JS -->
-    <script>
-// Cập nhật phần xử lý dropdown ngôn ngữ
-document.querySelectorAll('.language-option').forEach(option => {
-    option.addEventListener('click', (e) => {
-        e.preventDefault();
-        const lang = option.getAttribute('data-lang');
-        if (lang !== currentLang) {
-            currentLang = lang;
-            updateLanguage(lang);
-            
-            // Update active state
-            document.querySelectorAll('.language-option').forEach(opt => {
-                opt.classList.remove('active');
-            });
-            option.classList.add('active');
-        }
-    });
-});
-
-        // Translations object
-        const translations = {
-            vi: {
-                home: "Trang chủ",
-                hotels: "Khách sạn",
-                promotion: "Khuyến mãi",
-                language: "Ngôn ngữ",
-                login: "Đăng nhập",
-                register: "Đăng ký",
-                search_title: "Tìm kiếm khách sạn",
-                destination: "Địa điểm",
-                check_in: "Ngày đến",
-                check_out: "Ngày đi",
-                guests: "Số khách",
-                rooms: "Số phòng",
-                search: "Tìm kiếm",
-                featured_hotels: "Khách sạn nổi bật",
-                wifi: "WiFi",
-                pool: "Hồ bơi",
-                restaurant: "Nhà hàng",
-                per_night: "/đêm",
-                book_now: "Đặt ngay",
-                contact: "Liên hệ",
-                travel_website: "Trang web du lịch",
-                contact_us: "LIÊN HỆ",
-                address1: "CS1: 170D/6 Phan Đăng Lưu, P3, Phú Nhuận, TP.HCM",
-                address2: "CS2: 662/3 Sư Vạn Hạnh, P12, Quận 10, TP.HCM",
-                opening_hours: "GIỜ MỞ CỬA",
-                week_days: "Thứ 2 - Chủ nhật"
-            },
-            en: {
-                home: "Home",
-                hotels: "Hotels",
-                promotion: "Promotions",
-                language: "Language",
-                login: "Login",
-                register: "Register",
-                search_title: "Search Hotels",
-                destination: "Destination",
-                check_in: "Check-in",
-                check_out: "Check-out",
-                guests: "Guests",
-                rooms: "Rooms",
-                search: "Search",
-                featured_hotels: "Featured Hotels",
-                wifi: "WiFi",
-                pool: "Pool",
-                restaurant: "Restaurant",
-                per_night: "/night",
-                book_now: "Book Now",
-                contact: "Contact",
-                travel_website: "Travel Website",
-                contact_us: "CONTACT US",
-                address1: "Branch 1: 170D/6 Phan Dang Luu, Ward 3, Phu Nhuan, HCMC",
-                address2: "Branch 2: 662/3 Su Van Hanh, Ward 12, District 10, HCMC",
-                opening_hours: "OPENING HOURS",
-                week_days: "Monday - Sunday"
-            }
-        };
-
-        // Language switching functionality
-        const languageToggle = document.getElementById('languageToggle');
-        const languageDropdown = document.getElementById('languageDropdown');
-        const languageOptions = document.querySelectorAll('.language-option');
-        let currentLang = 'vi';
-
-        // Toggle dropdown
-        languageToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            languageDropdown.classList.toggle('show');
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.language-dropdown')) {
-                languageDropdown.classList.remove('show');
-            }
-        });
-
-        // Handle language selection
-        languageOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                const lang = option.getAttribute('data-lang');
-                if (lang !== currentLang) {
-                    currentLang = lang;
-                    updateLanguage(lang);
-                    
-                    // Update active state
-                    languageOptions.forEach(opt => opt.classList.remove('active'));
-                    option.classList.add('active');
-                }
-                languageDropdown.classList.remove('show');
-            });
-        });
-
-        // Update page content with selected language
-        function updateLanguage(lang) {
-            document.querySelectorAll('[data-translate]').forEach(element => {
-                const key = element.getAttribute('data-translate');
-                if (translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
-            });
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

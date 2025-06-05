@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel ENIGMA - Đặt vé trực tuyến</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="../css/hotel.css" rel="stylesheet">
+
+</head>
+<body>
+    <div id="notification" class="notification alert alert-dismissible fade show" role="alert" style="display: none;">
+        <span id="notificationMessage"></span>
+        <button id="closeNotification" type="button" class="btn-close" aria-label="Close"></button>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+       <a href="../index.html">
+            <div class="logo-container">
+               <img src="../images/logo.png" alt="Travel ENIGMA Logo" class="animate__animated animate__fadeIn"></a>
+                <div class="site-name animate__animated animate__fadeIn">Travel ENIGMA</div></a> 
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html" data-translate="home">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#hotels" data-translate="hotels">Khách sạn</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing" data-translate="promotion">Khuyến mãi</a>
+                    </li>
+                    <li class="nav-item language-dropdown">
+                        <a class="nav-link" href="#" id="languageDropdown">
+                            <i class="fas fa-globe"></i> <span class="lang-text" data-translate="language">Ngôn ngữ</span>
+                        </a>
+                        <div class="language-dropdown-content" id="languageDropdownContent">
+                            <a class="language-option active" href="#" data-lang="vi">
+                                <img src="https://flagcdn.com/w20/vn.png" alt="Vietnamese Flag"> Tiếng Việt
+                            </a>
+                            <a class="language-option" href="#" data-lang="en">
+                                <img src="https://flagcdn.com/w20/us.png" alt="English Flag"> English
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" id="userDropdown" style="display: none;">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" id="usernameLink">
+                            <span id="username">Tên người dùng</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="dashboard.html" data-translate="account_info">Thông tin tài khoản</a></li>
+                            <li><a class="dropdown-item" href="/dashboard#bookings" data-translate="bookings">Phòng đã đặt chỗ</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logoutLink" data-translate="logout">Đăng xuất</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" id="authLinkItem">
+                        <a class="nav-link" href="#" id="authLink" data-bs-toggle="modal" data-bs-target="#authModal" data-tab="login" data-translate="login">Đăng nhập</a>
+                    </li>
+                    <li class="nav-item" id="registerLink">
+                        <a class="nav-link" href="#" id="registerLinkAnchor" data-bs-toggle="modal" data-bs-target="#authModal" data-tab="register" data-translate="register">Đăng ký</a>
+                    </li>
+                </ul>
+            </div>
+       
+    </nav>
+
+    <!-- Hotel Information Section -->
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Hotel Images Carousel -->
+            <div class="col-lg-8">
+                <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="0" class="active"></button>
+                        <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="2"></button>
+                        <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="3"></button>
+                        <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="4"></button>
+                        <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="5"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10019885-62b98152a57973ce0f34625e6d6bbc73.jpeg?_src=imagekit&tr=dpr-2,c-at_max,f-jpg,h-360,pr-true,q-80,w-640" class="d-block w-100" alt="Hotel Exterior" loading="lazy">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10019885-666885497e7d855ed2efb2251b6942bf.jpeg?_src=imagekit&tr=dpr-2,c-at_max,f-jpg,h-360,pr-true,q-80,w-640" class="d-block w-100" alt="Hotel Room" loading="lazy">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10019885-9e0e14525d3acd1a8d213c721f19ce6e.jpeg?_src=imagekit&tr=dpr-2,c-at_max,f-jpg,h-360,pr-true,q-80,w-640" class="d-block w-100" alt="Hotel 1" loading="lazy">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://ik.imagekit.io/tvlk/generic-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10019885-d7d0e19494db8dff1780f4abf2e8b3f5.jpeg?_src=imagekit&tr=dpr-2,c-at_max,f-jpg,h-360,pr-true,q-40,w-640" class="d-block w-100" alt="Hotel 2" loading="lazy">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://ik.imagekit.io/tvlk/generic-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10019885-c58f21ed173c419e78a8bab4be959210.jpeg?_src=imagekit&tr=dpr-2,c-at_max,f-jpg,h-360,pr-true,q-40,w-640" class="d-block w-100" alt="Hotel 3" loading="lazy">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://ik.imagekit.io/tvlk/generic-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10019885-fce54ae066ddecc443bcb9ee4becab0e.jpeg?_src=imagekit&tr=dpr-2,c-at_max,f-jpg,h-360,pr-true,q-40,w-640" class="d-block w-100" alt="Hotel 4" loading="lazy">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://ik.imagekit.io/tvlk/generic-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10019885-c32d61972b776f4bc23764287518841d.jpeg?_src=imagekit&tr=dpr-2,c-at_max,f-jpg,h-360,pr-true,q-40,w-640" class="d-block w-100" alt="Hotel 5" loading="lazy">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hotel Details -->
+            <div class="col-lg-4">
+                <h1 class="hotel-name">The Imperial Vung Tau</h1>
+                <div class="rating mb-3">
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star-half-alt text-warning"></i>
+                    <span class="ms-2">4.5/5 (250 đánh giá)</span>
+                </div>
+                <div class="hotel-address mb-3">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>159 Thùy Vân, Phường 2, Thành phố Vũng Tàu, Bà Rịa - Vũng Tàu</span>
+                </div>
+                <div class="hotel-price mb-3">
+                    <h4 class="text-primary">Từ 2,500,000 VNĐ/đêm</h4>
+                </div>
+                <button class="btn btn-primary w-100 mb-3">Đặt phòng ngay</button>
+            </div>
+        </div>
+
+        <!-- Hotel Amenities -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3 class="mb-4">Tiện ích khách sạn</h3>
+                <div class="row">
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="amenity-item">
+                            <i class="fas fa-swimming-pool"></i>
+                            <span>Hồ bơi</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="amenity-item">
+                            <i class="fas fa-wifi"></i>
+                            <span>WiFi miễn phí</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="amenity-item">
+                            <i class="fas fa-utensils"></i>
+                            <span>Nhà hàng</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="amenity-item">
+                            <i class="fas fa-spa"></i>
+                            <span>Spa</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="amenity-item">
+                            <i class="fas fa-dumbbell"></i>
+                            <span>Phòng gym</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="amenity-item">
+                            <i class="fas fa-parking"></i>
+                            <span>Bãi đậu xe</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="amenity-item">
+                            <i class="fas fa-concierge-bell"></i>
+                            <span>Dịch vụ phòng 24/7</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="amenity-item">
+                            <i class="fas fa-umbrella-beach"></i>
+                            <span>Bãi biển riêng</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hotel Description -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3 class="mb-4">Mô tả khách sạn</h3>
+                <p>The Imperial Vung Tau là một khách sạn 5 sao sang trọng tọa lạc tại vị trí đắc địa trên đường Thùy Vân, với tầm nhìn toàn cảnh ra biển. Khách sạn mang đến cho du khách trải nghiệm nghỉ dưỡng đẳng cấp với các tiện ích hiện đại và dịch vụ chuyên nghiệp.</p>
+                <p>Với 200 phòng nghỉ được thiết kế tinh tế, khách sạn đáp ứng mọi nhu cầu của du khách từ phòng đơn đến suite sang trọng. Mỗi phòng đều được trang bị đầy đủ tiện nghi cao cấp và view biển tuyệt đẹp.</p>
+            </div>
+        </div>
+
+        <!-- Guest Reviews -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3 class="mb-4">Đánh giá từ khách hàng</h3>
+                <div class="review-item mb-4">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="images/avatar1.jpg" alt="User Avatar" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                        <div>
+                            <h5 class="mb-0">Nguyễn Văn A</h5>
+                            <div class="rating">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Khách sạn rất đẹp, view biển tuyệt vời. Nhân viên phục vụ nhiệt tình, chuyên nghiệp. Phòng ốc sạch sẽ, tiện nghi đầy đủ. Chắc chắn sẽ quay lại vào lần sau."</p>
+                </div>
+                <div class="review-item">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="images/avatar2.jpg" alt="User Avatar" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                        <div>
+                            <h5 class="mb-0">Trần Thị B</h5>
+                            <div class="rating">
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="fas fa-star text-warning"></i>
+                                <i class="far fa-star text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Khách sạn có vị trí rất thuận lợi, gần biển và các điểm tham quan. Dịch vụ tốt, đồ ăn ngon. Chỉ có giá hơi cao một chút."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section mb-5">
+        <h2 class="section-title" data-translate="contact">Liên hệ</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <h5 class="mb-3">Travel ENIGMA</h5>
+                <p data-translate="travel_website">Trang web du lịch</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 mb-md-0">
+                <h5 class="mb-3" data-translate="contact_us">LIÊN HỆ</h5>
+                <p><i class="fas fa-map-marker-alt me-2"></i> <span data-translate="address1">CS1: 170D/6 Phan Đăng Lưu, P3, Phú Nhuận, TP.HCM</span></p>
+                <p><i class="fas fa-map-marker-alt me-2"></i> <span data-translate="address2">CS2: 662/3 Sư Vạn Hạnh, P12, Quận 10, TP.HCM</span></p>
+                <p><i class="fa-solid fa-phone"></i> 090.190.120.5</p>
+            </div>
+            <div class="col-md-4">
+                <h5 class="mb-3" data-translate="opening_hours">GIỜ MỞ CỬA</h5>
+                <p data-translate="week_days">Thứ 2 - Chủ nhật</p>
+                <p>09:00 - 22:00</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Footer -->
+<footer class="footer py-3">
+        <p class="m-0">©ENIGMA-DEV-TEAM.Travel ENIGMA</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>
